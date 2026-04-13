@@ -1,21 +1,29 @@
-function appendValue(value) {
-    document.getElementById("display").value += value;
-}
+function addTask() {
+    let input = document.getElementById("taskInput");
+    let task = input.value;
 
-function clearDisplay() {
-    document.getElementById("display").value = "";
-}
-
-function deleteLast() {
-    let current = document.getElementById("display").value;
-    document.getElementById("display").value = current.slice(0, -1);
-}
-
-function calculate() {
-    try {
-        let result = eval(document.getElementById("display").value);
-        document.getElementById("display").value = result;
-    } catch {
-        alert("Invalid expression");
+    if (task === "") {
+        alert("Enter a task!");
+        return;
     }
+
+    let li = document.createElement("li");
+    li.textContent = task;
+
+    li.onclick = function () {
+        li.style.textDecoration = "line-through";
+    };
+
+   
+    let delBtn = document.createElement("button");
+    delBtn.textContent = " ❌";
+    delBtn.onclick = function () {
+        li.remove();
+    };
+
+    li.appendChild(delBtn);
+
+    document.getElementById("taskList").appendChild(li);
+
+    input.value = "";
 }
